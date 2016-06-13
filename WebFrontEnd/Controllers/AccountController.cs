@@ -70,7 +70,31 @@ namespace WebFrontEnd.Controllers
 
         public ActionResult Register()
         {
-            throw new NotImplementedException();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(User model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            using (var db = new lookatmyskateboardEntities())
+            {
+                db.Users.Add(model);
+                db.SaveChanges();
+                var userAccount = new UserAccount
+                {
+                    Username = model.username,
+                    IsAdmin = model.isAdmin
+                };
+
+                Session["User"] = userAccount;
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult LogOff()
