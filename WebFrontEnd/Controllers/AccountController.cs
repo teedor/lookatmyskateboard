@@ -22,6 +22,11 @@ namespace WebFrontEnd.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var cs = "data source=.;initial catalog=lookatmyskateboard;integrated security=True;";
             using (var cn = new SqlConnection(cs))
             {
@@ -55,7 +60,23 @@ namespace WebFrontEnd.Controllers
                 }
             }
 
-            return View(model);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Index()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult Register()
+        {
+            throw new NotImplementedException();
+        }
+
+        public ActionResult LogOff()
+        {
+            Session["User"] = null;
+            return RedirectToAction("Index", "Home");
         }
     }
 }
