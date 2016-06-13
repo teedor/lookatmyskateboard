@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebFrontEnd.Models.Account
 {
-    public class LoginViewModel
+    public class UserAccount
     {
         public string Username { get; set; }
         public string Password { get; set; }

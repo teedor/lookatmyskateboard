@@ -6,16 +6,15 @@
 
 <h2>Login</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
 {
     <fieldset>
-        
-        @Html.LabelFor(x => x.Username, new { @class = "control-label"})
-        @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
-        @Html.LabelFor(x => x.Password, new { @class = "control-label" })
-        @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
-        <br />
-        <input type="submit" value="Log in" class="btn btn-success"/>
-
+        @Html.LabelFor(x => x.Username, new {@class = "control-label"})
+        @Html.TextBoxFor(x => x.Username, new {@class = "form-control"})
+        @Html.LabelFor(x => x.Password, new {@class = "control-label"})
+        @Html.PasswordFor(x => x.Password, new {@class = "form-control"})
     </fieldset>
+    <br />
+    <input type="submit" value="Log in" class="btn btn-success"/>
+    @Html.ValidationSummary()
 }
