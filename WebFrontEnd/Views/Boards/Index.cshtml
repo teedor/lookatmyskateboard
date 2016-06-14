@@ -1,0 +1,31 @@
+﻿@model List<WebFrontEnd.Models.Board.BoardModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Latest Boards</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Owner</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var boardModel in Model)
+    {
+        <tr>
+            <td>@Html.Raw(boardModel.Name)</td>
+            <td><img width="200" alt="@boardModel.Name" src="~/images/@boardModel.ImageUrl"/></td>
+            <td>@Html.Raw(boardModel.Description)</td>
+            <td>@Html.Raw(boardModel.UploadedBy)</td>
+            <td><a href="~/Boards/View/@boardModel.Id">View</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
