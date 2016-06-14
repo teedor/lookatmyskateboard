@@ -166,6 +166,8 @@
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\UserAccount.cs" />
     <Compile Include="Models\Board\BoardModel.cs" />
+    <Compile Include="Models\Board\CommentModel.cs" />
+    <Compile Include="Models\Board\ViewBoardModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +223,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Boards\Index.cshtml" />
+    <Content Include="Views\Boards\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
