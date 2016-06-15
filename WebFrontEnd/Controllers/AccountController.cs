@@ -30,6 +30,7 @@ namespace WebFrontEnd.Controllers
             var cs = "data source=.;initial catalog=lookatmyskateboard;integrated security=True;";
             using (var cn = new SqlConnection(cs))
             {
+                const int userIdColumnIndex = 0;
                 const int usernameColumnIndex = 1;
                 const int isAdminColumnIndex = 3;
                 cn.Open();
@@ -44,7 +45,8 @@ namespace WebFrontEnd.Controllers
                             var userAccount = new UserAccount
                             {
                                 Username = reader.GetString(usernameColumnIndex),
-                                IsAdmin = reader.GetBoolean(isAdminColumnIndex)
+                                IsAdmin = reader.GetBoolean(isAdminColumnIndex),
+                                UserId = reader.GetInt32(userIdColumnIndex)
                             };
 
                             Session["User"] = userAccount;
@@ -85,16 +87,10 @@ namespace WebFrontEnd.Controllers
             {
                 db.Users.Add(model);
                 db.SaveChanges();
-                var userAccount = new UserAccount
-                {
-                    Username = model.username,
-                    IsAdmin = model.isAdmin
-                };
-
-                Session["User"] = userAccount;
             }
 
-            return RedirectToAction("Index", "Home");
+
+            return RedirectToAction("Login", "Account");
         }
 
         public ActionResult LogOff()

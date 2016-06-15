@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DataAccess;
 using WebFrontEnd.Models.Board;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using WebFrontEnd.Models.Account;
 
 namespace WebFrontEnd.Controllers
@@ -35,6 +36,7 @@ namespace WebFrontEnd.Controllers
                 var board = db.Skateboards.Include(x => x.User).Include(x => x.Comments).First(x => x.id == id);
                 model.Board = new BoardModel
                 {
+                    Id = board.id,
                     Name = board.name,
                     Description = board.description,
                     ImageUrl = board.imageUrl,
@@ -44,6 +46,7 @@ namespace WebFrontEnd.Controllers
                 model.NewComment = new CommentModel
                 {
                     Text = string.Empty,
+                    UserId = Session["User"] != null ? (Session["User"] as UserAccount).UserId : new int?(),
                     User = Session["User"] != null ? (Session["User"] as UserAccount).Username : string.Empty
                 };
             }
@@ -51,9 +54,24 @@ namespace WebFrontEnd.Controllers
             return View(model);
         }
 
-        public ActionResult AddComment()
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddComment(ViewBoardModel model)
         {
-            throw new NotImplementedException();
+            var cs = "data source=.;initial catalog=lookatmyskateboard;integrated security=True;";
+            using (var cn = new SqlConnection(cs))
+            {
+                cn.Open();
+                var sql = "INSERT INTO Comment (skateboardid, userid, text) VALUES (" + model.Board.Id + ", " +
+                          model.NewComment.UserId.Value + ", '" + model.NewComment.Text.Replace("'", "''") + "');";
+
+                using (var cmd = new SqlCommand(sql, cn))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            return RedirectToAction("View", new { id = model.Board.Id });
         }
     }
 }
