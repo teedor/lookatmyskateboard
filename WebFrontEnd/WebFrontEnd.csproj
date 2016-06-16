@@ -167,6 +167,7 @@
     <Compile Include="Models\Account\UserAccount.cs" />
     <Compile Include="Models\Board\BoardModel.cs" />
     <Compile Include="Models\Board\CommentModel.cs" />
+    <Compile Include="Models\Board\SearchModel.cs" />
     <Compile Include="Models\Board\ViewBoardModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -226,6 +227,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Boards\Index.cshtml" />
     <Content Include="Views\Boards\View.cshtml" />
+    <Content Include="Views\Boards\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

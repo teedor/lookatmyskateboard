@@ -1,0 +1,49 @@
+﻿@model WebFrontEnd.Models.Board.SearchModel
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Search</h2>
+
+@using (Html.BeginForm("Search", "Boards", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4>User</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        <div class="form-group">
+            @Html.LabelFor(model => model.SearchText, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.SearchText, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(model => model.SearchText, "", new {@class = "text-danger"})
+            </div>
+            <div class="col-md-2">
+                <input type="submit" value="Search" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+@if (Model.Skateboards != null)
+{
+    <strong>@Model.Skateboards.Count results found</strong>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var skateboard in Model.Skateboards)
+        {
+            <tr>
+                <td>@skateboard.Name</td>
+                <td>@skateboard.Description</td>
+                <th><a href="~/Boards/View/@skateboard.Id">View</a></th>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

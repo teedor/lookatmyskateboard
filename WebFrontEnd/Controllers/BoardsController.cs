@@ -28,6 +28,54 @@ namespace WebFrontEnd.Controllers
             return View(model);
         }
 
+        public ActionResult Search()
+        {
+            var model = new SearchModel
+            {
+                SearchText = string.Empty,
+                Skateboards = null
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Search(SearchModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var cs = "data source=.;initial catalog=lookatmyskateboard;integrated security=True;";
+            using (var cn = new SqlConnection(cs))
+            {
+                model.Skateboards = new List<BoardModel>();
+
+                cn.Open();
+                var sql = "SELECT Name, Description, Id FROM Skateboard WHERE Name Like '%" + model.SearchText +
+                          "%' OR Description Like '%" + model.SearchText + "%'";
+                using (var cmd = new SqlCommand(sql, cn))
+                {
+                    var reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            model.Skateboards.Add(new BoardModel
+                            {
+                                Name = reader.GetString(0),
+                                Description = reader.GetString(1),
+                                Id = reader.GetInt32(2)
+                            });
+                        }
+                    }
+                }
+            }
+
+            return View(model);
+        }
+
         public ActionResult View(int id)
         {
             var model = new ViewBoardModel();
