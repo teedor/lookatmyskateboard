@@ -183,7 +183,9 @@
     <Content Include="images\004.jpg" />
     <Content Include="images\005.jpg" />
     <Content Include="images\006.jpg" />
+    <Content Include="images\big.jpg" />
     <Content Include="images\flip.jpg" />
+    <Content Include="images\orangewheels.jpg" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
