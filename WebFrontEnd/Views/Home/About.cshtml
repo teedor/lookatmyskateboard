@@ -6,24 +6,5 @@
 
 <p>Use this area to provide additional information.</p>
 
-<button id="btn">Update Session Id</button>
 
-@section scripts {
-    <script>
-        $(function() {
-            $('#btn').click(function() {
-                var sessionId = getQueryString('attackerSessionId');
-                document.cookie = "ASP.NET_SessionId=" + sessionId + ";path=/;";
-                alert(document.cookie);
-            });
-        });
-
-        var getQueryString = function (field, url) {
-            var href = url ? url : window.location.href;
-            var reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
-            var string = reg.exec(href);
-            return string ? string[1] : null;
-        };
-    </script>
-}
 
