@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,7 +48,7 @@ namespace WebFrontEnd.Controllers
                 return View(model);
             }
 
-            var cs = "data source=.;initial catalog=lookatmyskateboard;integrated security=True;";
+            var cs = ConfigurationManager.ConnectionStrings["lookatmyskateboardConnection"].ConnectionString;
             using (var cn = new SqlConnection(cs))
             {
                 model.Skateboards = new List<BoardModel>();
@@ -110,7 +111,7 @@ namespace WebFrontEnd.Controllers
         [ValidateInput(false)]
         public ActionResult AddComment(ViewBoardModel model)
         {
-            var cs = "data source=.;initial catalog=lookatmyskateboard;integrated security=True;";
+            var cs = ConfigurationManager.ConnectionStrings["lookatmyskateboardConnection"].ConnectionString;
             using (var cn = new SqlConnection(cs))
             {
                 cn.Open();

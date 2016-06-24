@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,6 +25,12 @@ namespace EvilWebsite666.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult ClickJack()
+        {
+            ViewBag.ClickJackUrl = ConfigurationManager.AppSettings["clickjackurl"];
             return View();
         }
     }

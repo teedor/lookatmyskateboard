@@ -27,7 +27,7 @@ namespace WebFrontEnd.Controllers
                 return View(model);
             }
 
-            var cs = "data source=.;initial catalog=lookatmyskateboard;integrated security=True;";
+            var cs = ConfigurationManager.ConnectionStrings["lookatmyskateboardConnection"].ConnectionString;
             using (var cn = new SqlConnection(cs))
             {
                 const int userIdColumnIndex = 0;

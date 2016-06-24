@@ -30,6 +30,8 @@ namespace WebFrontEnd
                     }
                 }
             }
+
+            Response.Headers.Remove("X-Frame-Options");
         }
     }
 }
