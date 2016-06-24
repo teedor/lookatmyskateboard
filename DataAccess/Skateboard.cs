@@ -18,6 +18,7 @@ namespace DataAccess
         public Skateboard()
         {
             this.Comments = new HashSet<Comment>();
+            this.Likes = new HashSet<User>();
         }
     
         public int id { get; set; }
@@ -29,5 +30,7 @@ namespace DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Likes { get; set; }
     }
 }

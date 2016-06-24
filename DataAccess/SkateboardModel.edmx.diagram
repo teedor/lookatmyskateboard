@@ -11,6 +11,7 @@
         <AssociationConnector Association="lookatmyskateboardModel.FK_Comment_Skateboard" ManuallyRouted="false" />
         <AssociationConnector Association="lookatmyskateboardModel.FK_Comment_Users" ManuallyRouted="false" />
         <AssociationConnector Association="lookatmyskateboardModel.FK_Skateboard_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="lookatmyskateboardModel.Like" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

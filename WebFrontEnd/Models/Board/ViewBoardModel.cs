@@ -10,6 +10,8 @@ namespace WebFrontEnd.Models.Board
     {
         public int Id { get; set; }
 
+        public bool Liked { get; set; }
+
         public BoardModel Board { get; set; }
 
         public List<CommentModel> Comments { get; set; }

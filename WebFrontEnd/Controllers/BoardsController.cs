@@ -97,6 +97,10 @@ namespace WebFrontEnd.Controllers
                     UserId = Session["User"] != null ? (Session["User"] as UserAccount).UserId : new int?(),
                     User = Session["User"] != null ? (Session["User"] as UserAccount).Username : string.Empty
                 };
+                if (Session["User"] != null)
+                {
+                    model.Liked = board.Likes.Contains(db.Users.Find((Session["User"] as UserAccount).UserId));
+                }
             }
 
             return View(model);
@@ -120,6 +124,17 @@ namespace WebFrontEnd.Controllers
             }
 
             return RedirectToAction("View", new { id = model.Board.Id });
+        }
+
+        public ActionResult Like(int boardId, int userId)
+        {
+            using (var db = new lookatmyskateboardEntities())
+            {
+                db.Users.Find(userId).Likes.Add(db.Skateboards.Find(boardId));
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("View", new {id = boardId});
         }
     }
 }

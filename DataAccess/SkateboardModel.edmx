@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="lookatmyskateboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="lookatmyskateboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="id" />
@@ -13,6 +13,14 @@
           <Property Name="Text" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="skateboardId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Like">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="SkateboardId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="SkateboardId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Skateboard">
           <Key>
@@ -57,6 +65,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Like_Skateboard">
+          <End Role="Skateboard" Type="Self.Skateboard" Multiplicity="1" />
+          <End Role="Like" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skateboard">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="SkateboardId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Like" Type="Self.Like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Like">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Skateboard_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Skateboard" Type="Self.Skateboard" Multiplicity="*" />
@@ -71,6 +103,7 @@
         </Association>
         <EntityContainer Name="lookatmyskateboardModelStoreContainer">
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Like" EntityType="Self.Like" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skateboard" EntityType="Self.Skateboard" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Comment_Skateboard" Association="Self.FK_Comment_Skateboard">
@@ -81,13 +114,20 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
+          <AssociationSet Name="FK_Like_Skateboard" Association="Self.FK_Like_Skateboard">
+            <End Role="Skateboard" EntitySet="Skateboard" />
+            <End Role="Like" EntitySet="Like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_Users" Association="Self.FK_Like_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Like" EntitySet="Like" />
+          </AssociationSet>
           <AssociationSet Name="FK_Skateboard_Users" Association="Self.FK_Skateboard_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Skateboard" EntitySet="Skateboard" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="lookatmyskateboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -113,6 +153,7 @@
           <Property Name="uploadedBy" Type="Int32" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Skateboard" FromRole="Skateboard" ToRole="Comment" />
           <NavigationProperty Name="User" Relationship="Self.FK_Skateboard_Users" FromRole="Skateboard" ToRole="Users" />
+          <NavigationProperty Name="Likes" Relationship="lookatmyskateboardModel.Like" FromRole="Skateboard" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -124,6 +165,7 @@
           <Property Name="isAdmin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_Comment_Users" FromRole="Users" ToRole="Comment" />
           <NavigationProperty Name="Skateboards" Relationship="Self.FK_Skateboard_Users" FromRole="Users" ToRole="Skateboard" />
+          <NavigationProperty Name="Likes" Relationship="lookatmyskateboardModel.Like" FromRole="User" ToRole="Skateboard" />
         </EntityType>
         <Association Name="FK_Comment_Skateboard">
           <End Role="Skateboard" Type="Self.Skateboard" Multiplicity="1" />
@@ -177,7 +219,15 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="Skateboard" EntitySet="Skateboards" />
           </AssociationSet>
+          <AssociationSet Name="Like" Association="lookatmyskateboardModel.Like">
+            <End Role="Skateboard" EntitySet="Skateboards" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="Like">
+          <End Type="lookatmyskateboardModel.Skateboard" Role="Skateboard" Multiplicity="*" />
+          <End Type="lookatmyskateboardModel.User" Role="User" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -215,6 +265,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="Like" TypeName="lookatmyskateboardModel.Like" StoreEntitySet="Like">
+            <EndProperty Name="User">
+              <ScalarProperty Name="id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Skateboard">
+              <ScalarProperty Name="id" ColumnName="SkateboardId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

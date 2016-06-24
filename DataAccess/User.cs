@@ -19,6 +19,7 @@ namespace DataAccess
         {
             this.Comments = new HashSet<Comment>();
             this.Skateboards = new HashSet<Skateboard>();
+            this.Likes = new HashSet<Skateboard>();
         }
     
         public int id { get; set; }
@@ -30,5 +31,7 @@ namespace DataAccess
         public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Skateboard> Skateboards { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Skateboard> Likes { get; set; }
     }
 }
