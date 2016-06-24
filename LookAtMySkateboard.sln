@@ -7,6 +7,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebFrontEnd", "WebFrontEnd\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{30628792-B271-4CBD-AEAB-E1A3A6CEBF7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvilWebsite666", "EvilWebsite666\EvilWebsite666.csproj", "{07C67A90-1768-47D5-A275-9E89CB14A128}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{6279E6ED-48BC-4459-8A12-CE2672307A03}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{097D86E0-22BB-463E-9E7D-88485A450398}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1 = PublishScripts\Scripts\Deploy-AzureResourceGroup.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{672939C8-5BFA-4C8F-84EB-2BC0D90AC9F8}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Templates\EvilWebsite666.json = PublishScripts\Templates\EvilWebsite666.json
+		PublishScripts\Templates\EvilWebsite666.param.dev.json = PublishScripts\Templates\EvilWebsite666.param.dev.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +36,16 @@ Global
 		{30628792-B271-4CBD-AEAB-E1A3A6CEBF7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30628792-B271-4CBD-AEAB-E1A3A6CEBF7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30628792-B271-4CBD-AEAB-E1A3A6CEBF7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07C67A90-1768-47D5-A275-9E89CB14A128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07C67A90-1768-47D5-A275-9E89CB14A128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07C67A90-1768-47D5-A275-9E89CB14A128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07C67A90-1768-47D5-A275-9E89CB14A128}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{097D86E0-22BB-463E-9E7D-88485A450398} = {6279E6ED-48BC-4459-8A12-CE2672307A03}
+		{672939C8-5BFA-4C8F-84EB-2BC0D90AC9F8} = {6279E6ED-48BC-4459-8A12-CE2672307A03}
 	EndGlobalSection
 EndGlobal
