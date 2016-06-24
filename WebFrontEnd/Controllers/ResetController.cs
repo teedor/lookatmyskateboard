@@ -29,7 +29,7 @@ namespace WebFrontEnd.Controllers
                                 SET IDENTITY_INSERT [dbo].[Users] ON 
 
                                 INSERT [dbo].[Users] ([id], [username], [password], [isAdmin]) VALUES (1, N'admin', N'password', 1)
-                                INSERT [dbo].[Users] ([id], [username], [password], [isAdmin]) VALUES (2, N'test01', N'password', 1)
+                                INSERT [dbo].[Users] ([id], [username], [password], [isAdmin]) VALUES (2, N'test01', N'password', 0)
                                 SET IDENTITY_INSERT [dbo].[Users] OFF
                                 SET IDENTITY_INSERT [dbo].[Skateboard] ON 
 
