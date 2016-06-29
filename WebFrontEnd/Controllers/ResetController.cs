@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using DataAccess;
 using WebFrontEnd.Models.Account;
 
 namespace WebFrontEnd.Controllers
@@ -30,6 +31,7 @@ namespace WebFrontEnd.Controllers
 
                                 INSERT [dbo].[Users] ([id], [username], [password], [isAdmin]) VALUES (1, N'admin', N'password', 1)
                                 INSERT [dbo].[Users] ([id], [username], [password], [isAdmin]) VALUES (2, N'test01', N'password', 0)
+                                INSERT [dbo].[Users] ([id], [username], [password], [isAdmin]) VALUES (3, N'baddie', N'password', 0)
                                 SET IDENTITY_INSERT [dbo].[Users] OFF
                                 SET IDENTITY_INSERT [dbo].[Skateboard] ON 
 
@@ -51,6 +53,36 @@ namespace WebFrontEnd.Controllers
             }
 
             return Content("Not authorised");
+        }
+
+        [HttpGet]
+        public ActionResult ResetAdminPassword()
+        {
+            if (Session["User"] == null || (Session["User"] as UserAccount).Username != "admin")
+            {
+                return Content("Not authorised");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResetAdminPassword(ResetAdminPassword model)
+        {
+            if (Session["User"] == null || (Session["User"] as UserAccount).Username != "admin")
+            {
+                return Content("Not authorised");
+            }
+
+            using (var db = new lookatmyskateboardEntities())
+            {
+                var user = db.Users.Find(1);
+                user.password = model.Password;
+                db.SaveChanges();
+            }
+
+            Session.Abandon();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
