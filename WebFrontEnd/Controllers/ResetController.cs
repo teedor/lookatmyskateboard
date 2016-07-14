@@ -63,7 +63,7 @@ namespace WebFrontEnd.Controllers
                 return Content("Not authorised");
             }
 
-            return View();
+            return View(new ResetAdminPassword { Password = "password" });
         }
 
         [HttpPost]
